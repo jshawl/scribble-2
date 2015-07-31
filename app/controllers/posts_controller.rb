@@ -15,7 +15,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @user = User.first  #Will be set by session in future
+    @post = @user.posts.new(post_params)
     if @post.save
       redirect_to post_path(@post)
     else

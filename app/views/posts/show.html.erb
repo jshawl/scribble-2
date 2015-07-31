@@ -2,13 +2,14 @@
 <p>
   <%= @post.body %>
 </p>
-<h3>Comments</h3>
-<h4>Comment</h4>
-<%= form_for ([@post, @post.comments.build]) do |f| %>
+<h3>Comment</h3>
+<% @post.comments.each do |comment| %>
+  <h4><%= comment.author %></h4>
   <p>
-    <%= f.label :commenter %>
-    <%= f.text_field :commenter %>
+    <%= comment.body%><br>
   </p>
+<% end %>
+<%= form_for ([@post, @post.comments.build]) do |f| %> <%# ran into issue when trying to display list of comments bellow because .build adds this comment to the collection with fields at nil %>
   <p>
     <%= f.label :body %>
     <%= f.text_area :body %>
@@ -16,5 +17,6 @@
   <p>
     <%= f.submit %>
   </p>
-  <% end %>
-<%= link_to "All Posts", posts_path %>
+<% end %>
+
+<%= link_to "All Posts", posts_path %><br>

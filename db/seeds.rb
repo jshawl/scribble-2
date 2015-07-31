@@ -10,5 +10,11 @@ Post.destroy_all
 Comment.destroy_all
 
 jsm = User.create(username: "jsm", password_digest: "1234")
-jsm.posts.create(title: "First Post", body: "My opinions on something...")
-jsm.posts.create(title: "Second Post", body: "Yet another opinion - possibly on something else, possibly on the same thing...")
+dcm = User.create(username: "dcm", password_digest: "5678")
+first_post = jsm.posts.create(title: "First Post", body: "My opinions on something...")
+second_post = jsm.posts.create(title: "Second Post", body: "Yet another opinion - possibly on something else, possibly on the same thing...")
+first_post.comments.create(user: dcm, body: "Boo")
+first_post.comments.create(user: jsm, body: "Boo!!")
+
+second_post.comments.create(user: dcm, body: "Hooray")
+second_post.comments.create(user: jsm, body: "Hooray!!")
