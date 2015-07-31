@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scribble</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><%= link_to "Sign Up", sign_up_path %></li>
+        <li><%= link_to "Sign In", sign_in_path %></li>
+        <li><%= link_to "Sign Out", sign_out_path %></li>
+      </ul>
+    </nav>
+    <h1>Scribble</h1>
+    <div class="notice">
+      <%= flash[:notice] %>
+    </div>
+  </header>
+  <main>
+
+    <%= yield %>
+  </main>
+<footer>jsm</footer>
+
+</body>
+</html>
