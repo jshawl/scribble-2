@@ -1,12 +1,13 @@
-<%= form_tag("/sign_up", method: "post") do %> <%# could I use the fields_for method? %>
-  <%= label_tag :username %><br>
-  <%= text_field_tag :username %><br>
+<h2>Sign Up</h2>
+<%= form_for @user, url: {action: "sign_up"} do |f| %>
+  <%= f.label :username %><br>
+  <%= f.text_field :username %><br>
 
-  <%= label_tag :password %><br>
-  <%= text_field_tag :password %><br>
+  <%= f.label :password %><br>
+  <%= f.password_field :password %><br>
 
-  <%= label_tag :confirm_password %><br>
-  <%= text_field_tag :confirm_password %><br>
+  <%= f.label :password_confirmation %><br>
+  <%= f.password_field :password_confirmation %><br>
 
-  <%= submit_tag("Sign Up!") %>
+  <%= f.submit "Sign Up!" %>
 <% end %>

@@ -1,4 +1,7 @@
-<h4><%= comment.author %></h4>
+<h4><%= comment.user.username + " said:" %></h4>
 <p>
   <%= comment.body%><br>
 </p>
+<% if session[:user] && session[:user]["username"] == comment.user.username %>
+  <%= link_to 'delete', [comment.post, comment], method: :delete %>
+<% end %>

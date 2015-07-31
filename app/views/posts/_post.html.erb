@@ -1,5 +1,11 @@
 <h3><%= link_to post.title, post %></h3>
 <p>
+  <%= "by " + post.user.username %>
+</p>
+<p>
   <%= post.body %><br>
-  <%= link_to "Edit", edit_post_path(post) %>
+  <% if session[:user] && session[:user]["username"] == post.user.username %>
+    <%= link_to "Edit", edit_post_path(post) %><br>
+    <%= link_to "Delete", post_path(post), method: :delete %>
+  <% end %>
 </p>

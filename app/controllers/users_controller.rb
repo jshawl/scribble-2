@@ -1,19 +1,18 @@
 class UsersController < ApplicationController
   def sign_up
+    @user = User.new
   end
 
   def sign_up!
-    @user = User.new(username: params[:username], password_digest: params[:password])
-    if params[:confirm_password] != params[:password]
-      message = "Your passwords don't match!"
-    elsif @user.save
-      message = "Your account has been created!"
-      redirect_to posts_path
+    @user = User.new(params.require(:user).permit(:username, :password, :password_confirmation))
+    if @user.save
+      flash[:notice] = "Your account has been created!"
+      redirect_to action: :sign_in
+
     else
-      message = "Your account couldn't be created. Did you enter a unique username and password?"
+      flash[:notice] = "Your account couldn't be created. Did you enter a unique username and password?"
+      redirect_to action: :sign_up
     end
-    flash[:notice] = message
-    redirect_to action: :sign_up
   end
 
   def sign_in
@@ -22,18 +21,21 @@ class UsersController < ApplicationController
   def sign_in!
     @user = User.find_by(username: params[:username])
     if !@user
-      message = "This user doesn't exist!"
-    elsif @user.password_digest != params[:password]
-      message = "Your password's wrong!"
+      flash[:notice] = "This user doesn't exist!"
+      redirect_to action: :sign_in
+    elsif !BCrypt::Password.new(@user.password_digest).is_password?(params[:password])
+      flash[:notice] = "Your password's wrong!"
+      redirect_to action: :sign_in
     else
-      message = "You're signed in, #{@user.username}!"
+      flash[:notice] = "You're signed in, #{@user.username}!"
+      session[:user] = @user
+      redirect_to posts_path
     end
-    flash[:notice] = message
-    redirect_to action: :sign_in
   end
 
   def sign_out
-    flash[:notice] = "You're signed out!"
+    flash[:notice] = "#{session[:user]["username"]} signed out!"
+    session[:user] = nil
     redirect_to root_url
   end
 

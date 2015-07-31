@@ -2,8 +2,7 @@
 
 <%= render @post.comments %> <%# had to put partial in comments views, expected it to go in post views %>
 
+<% if session[:user] %>
 <h3>New Comment</h3>
-
 <%= render 'comments/form'%>
-
-<%= link_to "All Posts", posts_path %><br>
+<% end %>
