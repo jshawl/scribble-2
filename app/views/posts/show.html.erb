@@ -1,22 +1,9 @@
-<h2><%= @post.title %></h2>
-<p>
-  <%= @post.body %>
-</p>
-<h3>Comment</h3>
-<% @post.comments.each do |comment| %>
-  <h4><%= comment.author %></h4>
-  <p>
-    <%= comment.body%><br>
-  </p>
-<% end %>
-<%= form_for ([@post, @post.comments.build]) do |f| %> <%# ran into issue when trying to display list of comments bellow because .build adds this comment to the collection with fields at nil %>
-  <p>
-    <%= f.label :body %>
-    <%= f.text_area :body %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
+<%= render @post %>
+
+<%= render @post.comments %> <%# had to put partial in comments views, expected it to go in post views %>
+
+<h3>New Comment</h3>
+
+<%= render 'comments/form'%>
 
 <%= link_to "All Posts", posts_path %><br>

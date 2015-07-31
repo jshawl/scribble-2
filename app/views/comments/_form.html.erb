@@ -1,0 +1,9 @@
+<%= form_for ([@post, @post.comments.build]) do |f| %> <%# ran into issue when trying to display list of comments bellow because .build adds this comment to the collection with fields at nil %>
+  <p>
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
