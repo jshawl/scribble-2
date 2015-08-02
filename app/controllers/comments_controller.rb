@@ -15,4 +15,5 @@ class CommentsController < ApplicationController
 
     redirect_to post_path(@post)
   end
+  # remember to use strong_params when possible
 end

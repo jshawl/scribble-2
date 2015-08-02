@@ -4,5 +4,6 @@ class Comment < ActiveRecord::Base
 
   def author
     user.username
+    # excellent use of a model method!
   end
 end

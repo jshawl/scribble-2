@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def index
     @posts = Post.all.order(created_at: :desc)
+    # optionally, Post.where(user: session[:user])
   end
   def show
     @post = Post.find(params[:id])
@@ -25,10 +26,12 @@ class PostsController < ApplicationController
   end
   def update
     @post = Post.find(params[:id])
+    # you can use a before action to set the @post instance variable.
     if @post.update(post_params)
       redirect_to @post
     else
       render :update
+      # excellent!
     end
   end
   def destroy
